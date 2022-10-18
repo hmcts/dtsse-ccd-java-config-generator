@@ -32,8 +32,12 @@ const output = Object
   .map(generateFileReport)
   .join('');
 
+const githubCommentMaxLength = 65400;
+
 if (output === '') {
   console.log('No change');
+} else if (output.length > githubCommentMaxLength) {
+  console.log(output.substring(0, githubCommentMaxLength))
 } else {
   console.log(output);
 }
