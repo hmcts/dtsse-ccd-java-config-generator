@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { generateFileReport } = require('./markdown');
+const { resolveFiles, generateFile } = require('./fs');
 const { getDiff } = require('./diff');
-const { resolveFiles } = require('./fs');
+const nunjucks = require('nunjucks');
 
 const fileFieldId = {
   '**/AuthorisationCaseState.json': field => `${field.CaseStateID}:${field.UserRole}`,
@@ -17,28 +17,34 @@ const fileFieldId = {
   '**/WorkBasketResultFields.json': field => field.CaseFieldID,
   '**/AuthorisationCaseEvent.json': field => `${field.CaseEventID}:${field.UserRole}`,
   'AuthorisationCaseField/*.json': field => `${field.CaseFieldID}:${field.UserRole}`,
-  'CaseEvent/*.json': field => field.ID,
   'ComplexTypes/*.json': field => `${field.ID}:${field.ListElementCode}`,
   'CaseEventToFields/*.json': field => `${field.CaseFieldID}:${field.CaseEventID}`,
   'CaseTypeTab/*.json': field => `${field.TabID}:${field.CaseFieldID}:${field.UserRole}`,
   'FixedLists/*.json': field => `${field.ID}:${field.ListElementCode}`
 };
 
-const output = Object
+const eventFileFieldId = { 'CaseEvent/*.json': field => field.ID };
+
+const jsonConfig = Object
   .entries(fileFieldId)
   .flatMap(resolveFiles)
-  .map(getDiff)
-  .filter(diff => diff.additions.length + diff.removals.length + diff.changes.length > 0)
-  .map(generateFileReport)
-  .join('');
+  .map(getDiff);
 
-const githubCommentMaxLength = 65400;
+const eventsConfig = Object
+  .entries(eventFileFieldId)
+  .flatMap(resolveFiles);
 
-if (output === '') {
-  console.log('No change');
-} else if (output.length > githubCommentMaxLength) {
-  console.log('Output too long for GitHub PR');
-} else {
-  console.log(output);
-}
+nunjucks.configure('templates', { autoescape: true });
+
+
+eventsConfig.forEach(event => {
+  const context = {
+    packageName: 'uk.gov.hmcts.ccd.sdk.jsonToJavaConfig',
+    className: 'ExampleCcdConfig',
+    eventId: event[1][0]['ID'],
+    eventName: event[1][0]['Name']
+  };
+  const res = nunjucks.render('event.java', context);
+  generateFile(context.className, res);
+})
 

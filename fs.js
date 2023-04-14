@@ -1,22 +1,29 @@
 const { globSync } = require('glob');
-const { existsSync } = require('fs');
+const { existsSync, writeFile } = require('fs');
 
-const [_, __, arg1, arg2] = process.argv;
-const masterDir = process.cwd() + '/' + arg1 + '/';
-const branchDir = process.cwd() + '/' + arg2 + '/';
+const masterDir = 'definition/';
 
-const loadFile = path => existsSync(path) ? require(path) : [];
+const loadFile = path => existsSync(path) ? require("./" + path) : [];
 
-const getFilename = path => path.replace(masterDir, '').replace(branchDir, '');
+const getFilename = path => path.replace(masterDir, '');
 
 const resolveFiles = ([file, getFieldId]) => {
   const masterFiles = globSync(masterDir + file);
-  const branchFiles = globSync(branchDir + file);
-  const branchOnlyFiles = branchFiles.filter(bf => !masterFiles.some(mf => getFilename(bf) === getFilename(mf)));
-  const allFiles = [...masterFiles, ...branchOnlyFiles].map(getFilename);
+  const allFiles = [...masterFiles].map(getFilename);
 
   return allFiles
-    .map(file => [file, loadFile(masterDir + file), loadFile(branchDir + file), getFieldId]);
+    .map(file => [file, loadFile(masterDir + file), getFieldId]);
 };
 
-module.exports = { resolveFiles };
+const generateFile = (fileName, content) => {
+
+  writeFile('generated/'+fileName+'.java', content, err => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(`File ${fileName}.java generated successfully`);
+  });
+
+};
+
+module.exports = { resolveFiles, generateFile };

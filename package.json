@@ -1,8 +1,8 @@
 {
-  "name": "@hmcts/ccd-diff",
+  "name": "@hmcts/ccd-java-config-generator",
   "private": false,
-  "version": "4.4.0",
-  "description": "Diff CCD files",
+  "version": "0.0.1",
+  "description": "Migrate JSON CCD configuration into Java",
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
@@ -13,10 +13,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:hmcts/rse-ccd-diff.git"
+    "url": "git@github.com:hmcts/dtsse-ccd-java-config-generator.git"
   },
   "dependencies": {
-    "glob": "^9.0.2"
+    "glob": "^9.0.2",
+    "nunjucks": "^3.2.4"
   },
   "devDependencies": {
     "eslint": "^8.20.0"
