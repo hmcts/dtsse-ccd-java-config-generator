@@ -16,17 +16,16 @@ const groupBy = (values, getId) => values.reduce((result, value) => {
   return result;
 }, {});
 
-const getDiff = ([filename, masterDef, getFieldId]) => {
+const getFields = ([filename, masterDef, fileTypeGetFieldId]) => {
   const masterWithoutBlacklistedKeys = masterDef.map(removeBlacklistedKeys);
   const masterKeys = masterWithoutBlacklistedKeys.reduce((keys, item) => ({ ...keys, ...item }), {});
   const masterAndBranchKeys = masterKeys;
   const keys = Object.keys(masterAndBranchKeys);
   const masterWithConsistentKeys = masterWithoutBlacklistedKeys.map(ensureKeys(keys));
-  const masterFields = groupBy(masterWithConsistentKeys, getFieldId);
+  const masterFields = groupBy(masterWithConsistentKeys, fileTypeGetFieldId[0]);
   const masterFieldKeys = Object.keys(masterFields);
 
-
-  return { file: filename, masterFields };
+  return { [fileTypeGetFieldId[1]]: masterFields };
 };
 
-module.exports = { getDiff };
+module.exports = { getFields };
