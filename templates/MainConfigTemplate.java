@@ -16,13 +16,10 @@ public class {{ className }} implements CCDConfig<CaseData, State, UserRole> {
     @Override
     public void configure(ConfigBuilder<CaseData, State, UserRole> builder) {
 
-        builder.event("{{ eventId }}")
-            .forAllStates()
-            .name("{{ eventName }}")
-            .description("{{ description }}")
-            .grant(CRU, HMCTS_ADMIN)
-            .fields()
-            .optional(CaseData::getFamilyManCaseNumber)
-            .optional(CaseData::getCaseNotes);
+        builder.jurisdiction("{{ jurisdiction["ID"] }}", "{{ jurisdiction["Name"] }}", "{{ jurisdiction["Description"] }}");
+        {% for caseType in caseTypes %}
+        builder.caseType("{{ caseType["ID"] }}", "{{ caseType["Name"] }}", "{{ caseType["Description"] }}");
+        {% endfor %}
+        builder.omitHistoryForRoles(SYSTEM_UPDATE);
     }
 }
