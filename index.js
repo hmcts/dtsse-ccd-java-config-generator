@@ -3,6 +3,9 @@
 const { resolveFiles, generateFile } = require('./fs');
 const { getFields } = require('./transform');
 const nunjucks = require('nunjucks');
+const { generateEventClasses } = require("./event-config");
+
+const PACKAGE = 'uk.gov.hmcts.reform.fpl';
 
 const fileFileTypeFieldId = {
   './Jurisdiction.json': [field => field.ID, 'jurisdiction'],
@@ -17,7 +20,8 @@ const fileFileTypeFieldId = {
   'State/**/State.json': [field => field.ID, 'states'],
   '**/WorkBasketInputFields.json': [field => field.CaseFieldID, 'wbInputs'],
   '**/WorkBasketResultFields.json': [field => field.CaseFieldID, 'wbResults'],
-  '**/AuthorisationCaseEvent.json': [field => `${field.CaseEventID}:${field.UserRole}`, 'eventPermissions'],
+  '**/AuthorisationCaseEvent.json': [field => `${field.CaseEventID}:${field.AccessControl}`, 'eventPermissions'],
+  'AuthorisationCaseEvent/**/*.json': [field => `${field.CaseEventID}:${field.AccessControl}`, 'eventPermissions'],
   'AuthorisationCaseField/**/*.json': [field => `${field.CaseFieldID}:${field.UserRole}`, 'fieldPermissions'],
   'CaseEvent/**/*.json': [field => field.ID, 'events'],
   'ComplexTypes/*.json': [field => `${field.ID}:${field.ListElementCode}`, 'complexTypes'],
@@ -30,13 +34,13 @@ const jsonConfig = Object.entries(fileFileTypeFieldId)
   .flatMap(resolveFiles)
   .map(getFields)
   .reduce(
-    (prev, curr) => ({ [curr.type]: Object.assign(prev[curr.type] || {}, curr.fields), ...prev }),
+    (prev, curr) => ({ ...prev, [curr.type]: [...prev[curr.type] || [], ...curr.fields] }),
     {});
 
 nunjucks.configure('templates', { autoescape: true });
 
 const context = {
-  packageName: 'uk.gov.hmcts.reform.fpl',
+  packageName: PACKAGE,
 };
 const jurisdiction = jsonConfig['jurisdiction'];
 context["jurisdiction"] = jurisdiction[Object.keys(jurisdiction)[0]];
@@ -48,14 +52,5 @@ Object.entries(jsonConfig['caseTypes']).forEach((caseType, index) => {
 const res = nunjucks.render('MainConfigTemplate.java', context);
 generateFile("MainCcdConfig", res);
 
-Object.entries(jsonConfig['events']).forEach(event => {
-  const context = {
-    packageName: 'uk.gov.hmcts.reform.fpl',
-    className: event[1]['ID'][0].toUpperCase() + event[1]['ID'].slice(1),
-    eventId: event[1]['ID'],
-    eventName: event[1]['Name']
-  };
-  const res = nunjucks.render('EventConfigTemplate.java', context);
-  generateFile(context.className, res);
-})
+generateEventClasses(jsonConfig, PACKAGE);
 

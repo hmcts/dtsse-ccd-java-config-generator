@@ -17,9 +17,12 @@ public class {{ className }} implements CCDConfig<CaseData, State, UserRole> {
     public void configure(ConfigBuilder<CaseData, State, UserRole> builder) {
 
         builder.jurisdiction("{{ jurisdiction["ID"] }}", "{{ jurisdiction["Name"] }}", "{{ jurisdiction["Description"] }}");
-        {% for caseType in caseTypes %}
+        {% for caseType in caseTypes -%}
         builder.caseType("{{ caseType["ID"] }}", "{{ caseType["Name"] }}", "{{ caseType["Description"] }}");
-        {% endfor %}
+        {%- endfor %}
         builder.omitHistoryForRoles(SYSTEM_UPDATE);
+        {% if jurisdiction["Shuttered"] == "Yes" -%}
+        builder.shutterService();
+        {%- endif %}
     }
 }
