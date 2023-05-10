@@ -3,7 +3,7 @@
 const { resolveFiles, generateFile } = require('./fs');
 const { getFields } = require('./transform');
 const nunjucks = require('nunjucks');
-const { generateEventClasses } = require("./event-config");
+const { generateEventClasses } = require("./event-classes-generator");
 
 const PACKAGE = 'uk.gov.hmcts.reform.fpl';
 
@@ -41,6 +41,7 @@ nunjucks.configure('templates', { autoescape: true });
 
 const context = {
   packageName: PACKAGE,
+  className: "MainCcdConfig"
 };
 const jurisdiction = jsonConfig['jurisdiction'];
 context["jurisdiction"] = jurisdiction[Object.keys(jurisdiction)[0]];
@@ -50,7 +51,7 @@ Object.entries(jsonConfig['caseTypes']).forEach((caseType, index) => {
   context["caseTypes"][index] = { ...caseType[1] };
 })
 const res = nunjucks.render('MainConfigTemplate.java', context);
-generateFile("MainCcdConfig", res);
+generateFile(context.className, res);
 
 generateEventClasses(jsonConfig, PACKAGE);
 

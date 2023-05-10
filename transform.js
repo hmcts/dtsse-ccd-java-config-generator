@@ -1,3 +1,4 @@
+const {resolveFiles} = require("./fs");
 
 const blacklistedKeys = ['LiveFrom', 'SecurityClassification', 'CaseTypeID', 'DisplayOrder'];
 
@@ -21,12 +22,15 @@ const getFields = ([masterDef, fileTypeGetFieldId]) =>
 
 const getGroupedFields = ([masterDef, fileTypeGetFieldId]) => {
   const masterWithoutBlacklistedKeys = masterDef.map(removeBlacklistedKeys);
-  const masterKeys = masterWithoutBlacklistedKeys.reduce((keys, item) => ({ ...keys, ...item }), {});
-  const keys = Object.keys(masterKeys);
-  const masterWithConsistentKeys = masterWithoutBlacklistedKeys.map(ensureKeys(keys));
-  const masterFields = groupBy(masterWithConsistentKeys, fileTypeGetFieldId[0]);
-
+  const masterFields = groupBy(masterWithoutBlacklistedKeys, fileTypeGetFieldId[0]);
   return { type: fileTypeGetFieldId[1], fields: masterFields };
 };
+
+const transformJson = fileFileTypeFieldId =>  Object.entries(fileFileTypeFieldId)
+  .flatMap(resolveFiles)
+  .map(getFields)
+  .reduce(
+    (prev, curr) => ({ ...prev, [curr.type]: [...prev[curr.type] || [], ...curr.fields] }),
+    {});
 
 module.exports = { getFields, getGroupedFields, groupBy };

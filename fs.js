@@ -17,7 +17,7 @@ const resolveFiles = ([file, fileTypeGetFieldId]) => {
 
 const generateFile = (fileName, content) => {
 
-  writeFile('generated/'+fileName+'.java', content, err => {
+  writeFile('src/test/java/uk/gov/hmcts/reform/fpl/'+fileName+'.java', content, err => {
     if (err) {
       console.error(err);
     }

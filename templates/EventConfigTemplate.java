@@ -10,7 +10,7 @@ import {{ packageName }}.model.CaseData;
 {% for permission in permissions  -%}
 import static uk.gov.hmcts.ccd.sdk.api.Permission.{{ permission["CRUD"] }};
 {% for role in permission["UserRoles"] -%}
-import static {{ packageName }}.enums.UserRole.{{ role | upper }}
+import static {{ packageName }}.enums.UserRole.{{ role | upper | replace("-", "_") }};
 {% endfor %}
 {%- endfor %}
 
@@ -25,13 +25,13 @@ public class {{ className }} implements CCDConfig<CaseData, State, UserRole> {
             .name("{{ event["Name"] }}")
             .description("{{ event["Description"] }}")
             {% for permission in permissions  -%}
-            .grant({{ permission["CRUD"] }}{% for role in permission["UserRoles"] -%}, {{ role | upper -}}{%- endfor %})
+            .grant({{ permission["CRUD"] }}{% for role in permission["UserRoles"] -%}, {{ role | upper | replace("-", "_") -}}{%- endfor %})
             {% endfor -%}
             {% if event["ShowSummary"] !== "N" -%}
             .showSummary()
             {%- endif %}
             .fields()
-            .optional(CaseData::getFamilyManCaseNumber)
+            .optional(CaseData::getApplicantName)
             .optional(CaseData::getCaseNotes);
     }
 }
