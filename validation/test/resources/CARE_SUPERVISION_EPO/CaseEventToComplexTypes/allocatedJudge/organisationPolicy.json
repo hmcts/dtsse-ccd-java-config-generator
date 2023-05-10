@@ -1,0 +1,34 @@
+[
+  {
+    "DefaultValue": "[SOLICITOR]",
+    "LiveFrom": "01/01/2017",
+    "CaseFieldID": "organisationPolicy",
+    "CaseEventID": "allocatedJudge",
+    "DisplayContext": "OPTIONAL",
+    "ListElementCode": "OrgPolicyCaseAssignedRole"
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseFieldID": "organisationPolicy",
+    "CaseEventID": "allocatedJudge",
+    "DisplayContext": "OPTIONAL",
+    "ListElementCode": "OrgPolicyReference",
+    "EventElementLabel": "Org ref",
+    "EventHintText": "Sol org ref"
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseFieldID": "organisationPolicy",
+    "CaseEventID": "allocatedJudge",
+    "DisplayContext": "MANDATORY",
+    "ListElementCode": "Organisation.OrganisationID"
+  },
+  {
+    "CaseEventID" : "allocatedJudge",
+    "CaseFieldID" : "organisationPolicy",
+    "DisplayContext" : "MANDATORY",
+    "EventElementLabel" : "Organisation Name",
+    "ListElementCode" : "Organisation.OrganisationName",
+    "LiveFrom" : "01/01/2017"
+  }
+]
