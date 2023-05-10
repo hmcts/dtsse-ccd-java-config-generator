@@ -3,8 +3,10 @@
 const { generateFile } = require('./fs');
 const nunjucks = require('nunjucks');
 const { generateEventClasses } = require("./event-classes-generator");
+const { transformJson } = require("./transform");
+const {generateStateClass} = require("./state-class-generator");
 
-const SERVICE = 'fpl';
+const SERVICE = 'cft';
 const BASE_PACKAGE = 'uk.gov.hmcts.reform';
 
 const fileFileTypeFieldId = {
@@ -49,4 +51,5 @@ const res = nunjucks.render('MainConfigTemplate.java', context);
 generateFile(`${SERVICE}/${context.className}`, res);
 
 generateEventClasses(BASE_PACKAGE, SERVICE);
+generateStateClass(BASE_PACKAGE, SERVICE);
 

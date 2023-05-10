@@ -1,15 +1,15 @@
-package uk.gov.hmcts.reform.fpl.enums;
+package {{ packageName }};
 
 import uk.gov.hmcts.ccd.sdk.api.CCD;
 
 public enum State {
 
     @CCD(
-      label = "Initial case state – create title as a minimum; add documents, etc."
+      label = "Initial case state"
     )
     Open,
     @CCD(
-      label = "Submitted case state - LA can no longer edit")
+      label = "Submitted case state")
     Submitted
 
 }

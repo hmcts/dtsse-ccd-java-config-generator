@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.fpl.model;
+package {{ packageName }};
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,5 +14,10 @@ public class CaseData {
       label = "Applicant name"
     )
     private String applicantName;
+
+    @CCD(
+      label = "Case note"
+    )
+    private String caseNote;
 
 }

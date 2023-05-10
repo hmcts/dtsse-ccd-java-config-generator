@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.fpl.enums;
+package {{ packageName }};
 
 import com.google.common.collect.ImmutableList;
 import uk.gov.hmcts.ccd.sdk.api.HasRole;

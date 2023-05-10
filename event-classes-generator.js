@@ -35,6 +35,8 @@ const generateEventClasses = (basePackage, service) => {
     const res = nunjucks.render('EventConfigTemplate.java', context);
     generateFile(`${service}/${context.className}`, res);
   })
+  const res = nunjucks.render('UserRolesTemplate.java', { packageName: `${basePackage}.${service}.enums` });
+  generateFile(`${service}/enums/UserRole`, res);
 };
 
 module.exports = { generateEventClasses };
