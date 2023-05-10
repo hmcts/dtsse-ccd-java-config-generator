@@ -1,0 +1,13 @@
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "UserRoles": [
+      "caseworker-publiclaw-solicitor",
+      "caseworker-publiclaw-judiciary",
+      "caseworker-publiclaw-courtadmin",
+      "caseworker-publiclaw-superuser"
+    ],
+    "CRUD": "CRU"
+  }
+]

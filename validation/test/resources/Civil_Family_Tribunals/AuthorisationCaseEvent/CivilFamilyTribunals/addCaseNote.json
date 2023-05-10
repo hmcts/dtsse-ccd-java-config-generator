@@ -1,0 +1,36 @@
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "CaseEventID": "addCaseNote",
+    "AccessControl": [
+      {
+        "UserRoles": [
+          "caseworker-publiclaw-courtadmin",
+          "caseworker-publiclaw-judiciary"
+        ],
+        "CRUD": "CR"
+      }
+    ]
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "CaseEventID": "updateCaseNotes",
+    "AccessControl": [
+      {
+        "UserRoles": [
+          "caseworker-publiclaw-courtadmin",
+          "caseworker-publiclaw-judiciary"
+        ],
+        "CRUD": "CR"
+      },
+      {
+        "UserRoles": [
+          "caseworker-publiclaw-solicitor"
+        ],
+        "CRUD": "R"
+      }
+    ]
+  }
+]

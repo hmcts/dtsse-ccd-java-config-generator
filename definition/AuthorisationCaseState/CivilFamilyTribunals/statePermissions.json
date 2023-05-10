@@ -1,0 +1,24 @@
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "CaseStateID": "Open",
+    "UserRoles": [
+      "caseworker-publiclaw-solicitor",
+      "caseworker-publiclaw-superuser"
+    ],
+    "CRUD": "CRU"
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "CaseStateID": "Submitted",
+    "UserRoles": [
+      "caseworker-publiclaw-solicitor",
+      "caseworker-publiclaw-courtadmin",
+      "caseworker-publiclaw-judiciary",
+      "caseworker-publiclaw-superuser"
+    ],
+    "CRUD": "CRU"
+  }
+]
