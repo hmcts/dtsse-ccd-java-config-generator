@@ -33,4 +33,4 @@ const transformJson = fileFileTypeFieldId =>  Object.entries(fileFileTypeFieldId
     (prev, curr) => ({ ...prev, [curr.type]: [...prev[curr.type] || [], ...curr.fields] }),
     {});
 
-module.exports = { getFields, getGroupedFields, groupBy };
+module.exports = { getFields, getGroupedFields, groupBy, transformJson };

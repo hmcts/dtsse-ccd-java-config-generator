@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const { resolveFiles, generateFile } = require('./fs');
-const { getFields } = require('./transform');
+const { generateFile } = require('./fs');
 const nunjucks = require('nunjucks');
 const { generateEventClasses } = require("./event-classes-generator");
 
-const PACKAGE = 'uk.gov.hmcts.reform.fpl';
+const SERVICE = 'fpl';
+const BASE_PACKAGE = 'uk.gov.hmcts.reform';
 
 const fileFileTypeFieldId = {
   './Jurisdiction.json': [field => field.ID, 'jurisdiction'],
@@ -30,17 +30,12 @@ const fileFileTypeFieldId = {
   'FixedLists/*.json': [field => `${field.ID}:${field.ListElementCode}`, 'fixedLists']
 };
 
-const jsonConfig = Object.entries(fileFileTypeFieldId)
-  .flatMap(resolveFiles)
-  .map(getFields)
-  .reduce(
-    (prev, curr) => ({ ...prev, [curr.type]: [...prev[curr.type] || [], ...curr.fields] }),
-    {});
+const jsonConfig = transformJson(fileFileTypeFieldId);
 
 nunjucks.configure('templates', { autoescape: true });
 
 const context = {
-  packageName: PACKAGE,
+  packageName: `${BASE_PACKAGE}.${SERVICE}`,
   className: "MainCcdConfig"
 };
 const jurisdiction = jsonConfig['jurisdiction'];
@@ -51,7 +46,7 @@ Object.entries(jsonConfig['caseTypes']).forEach((caseType, index) => {
   context["caseTypes"][index] = { ...caseType[1] };
 })
 const res = nunjucks.render('MainConfigTemplate.java', context);
-generateFile(context.className, res);
+generateFile(`${SERVICE}/${context.className}`, res);
 
-generateEventClasses(jsonConfig, PACKAGE);
+generateEventClasses(BASE_PACKAGE, SERVICE);
 

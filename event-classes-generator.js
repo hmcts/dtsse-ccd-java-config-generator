@@ -1,10 +1,10 @@
 const { generateFile } = require('./fs');
-const { groupBy } = require('./transform');
+const { groupBy, transformJson } = require('./transform');
 const nunjucks = require('nunjucks');
 
 nunjucks.configure('templates', { autoescape: true });
 
-const fileFileTypeFieldId = {
+const jsonDataMappings = {
   '**/AuthorisationCaseEvent.json': [field => `${field.CaseEventID}:${field.AccessControl}`, 'eventPermissions'],
   'AuthorisationCaseEvent/**/*.json': [field => `${field.CaseEventID}:${field.AccessControl}`, 'eventPermissions'],
   '**/CaseEvent.json': [field => field.ID, 'events'],
@@ -15,7 +15,9 @@ const fileFileTypeFieldId = {
   '**/CaseEventToComplexTypes/**/*.json': [field => `${field.CaseFieldID}:${field.CaseEventID}`, 'eventComplexTypes'],
 };
 
-const generateEventClasses = (jsonConfig, pkgName) => {
+const generateEventClasses = (basePackage, service) => {
+
+  const jsonConfig = transformJson(jsonDataMappings);
 
   jsonConfig['events'].forEach(event => {
     const permissions = groupBy(
@@ -24,14 +26,14 @@ const generateEventClasses = (jsonConfig, pkgName) => {
     )[event['ID']]['AccessControl'];
 
     const context = {
-      packageName: pkgName,
+      packageName: `${basePackage}.${service}`,
       className: event['ID'][0].toUpperCase() + event['ID'].slice(1),
       event,
       permissions
     };
 
     const res = nunjucks.render('EventConfigTemplate.java', context);
-    generateFile(context.className, res);
+    generateFile(`${service}/${context.className}`, res);
   })
 };
 
