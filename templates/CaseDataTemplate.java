@@ -9,15 +9,10 @@ import uk.gov.hmcts.ccd.sdk.api.CCD;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 public class CaseData {
-
+    {% for field in fields %}
     @CCD(
-      label = "Applicant name"
+      label = "{{ field["Label"] }}"
     )
-    private String applicantName;
-
-    @CCD(
-      label = "Case note"
-    )
-    private String caseNote;
-
+    private String {{ field["ID"] }};
+    {% endfor %}
 }

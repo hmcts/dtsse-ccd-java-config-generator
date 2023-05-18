@@ -1,0 +1,26 @@
+[
+  {
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "FieldType": "Text",
+    "ID": "applicantName",
+    "Label": "Applicant name",
+    "LiveFrom": "01/01/2017",
+    "SecurityClassification": "Public"
+  },
+  {
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "FieldType": "CaseHistoryViewer",
+    "ID": "caseHistory",
+    "Label": " ",
+    "LiveFrom": "01/01/2017",
+    "SecurityClassification": "Public"
+  },
+  {
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "FieldType": "Text",
+    "ID": "caseNotes",
+    "Label": "Case Notes",
+    "LiveFrom": "01/01/2017",
+    "SecurityClassification": "Public"
+  }
+]

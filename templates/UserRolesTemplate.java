@@ -6,11 +6,10 @@ import uk.gov.hmcts.ccd.sdk.api.HasRole;
 import java.util.List;
 
 public enum UserRole implements HasRole {
-    CASEWORKER_PUBLICLAW_SOLICITOR("caseworker-publiclaw-courtadmin"),
-    CASEWORKER_PUBLICLAW_JUDICIARY("caseworker-publiclaw-courtadmin"),
-    CASEWORKER_PUBLICLAW_COURTADMIN("caseworker-publiclaw-courtadmin"),
-    CASEWORKER_PUBLICLAW_SUPERUSER("[SOLICITOR]");
 
+    {% for permission in allPermissions  -%}
+    {{ permission["role"] -}}("{{ permission["UserRole"] }}"){{ ";" if loop.last else "," }}
+    {% endfor -%}
 
     private final String role;
     private final String casetypePermissions;

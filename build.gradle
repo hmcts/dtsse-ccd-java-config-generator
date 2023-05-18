@@ -15,6 +15,9 @@ sourceSets {
         java {
             srcDirs = ['validation/test/java', 'generated/src/test/java']
         }
+        resources {
+            srcDirs = ['validation/test/resources']
+        }
     }
 }
 

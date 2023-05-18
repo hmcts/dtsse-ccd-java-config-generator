@@ -3,13 +3,8 @@ package {{ packageName }};
 import uk.gov.hmcts.ccd.sdk.api.CCD;
 
 public enum State {
-
-    @CCD(
-      label = "Initial case state"
-    )
-    Open,
-    @CCD(
-      label = "Submitted case state")
-    Submitted
-
+    {% for state in states %}
+    @CCD(label = "{{ state["Name"] }}")
+    {{ state["ID"] }}{{ ";" if loop.last else "," }}
+    {% endfor %}
 }

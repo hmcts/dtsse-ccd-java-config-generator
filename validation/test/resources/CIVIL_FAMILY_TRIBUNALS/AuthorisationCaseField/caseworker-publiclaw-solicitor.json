@@ -1,0 +1,23 @@
+[
+  {
+    "CRUD": "CR",
+    "CaseFieldID": "applicantName",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-solicitor"
+  },
+  {
+    "CRUD": "CRU",
+    "CaseFieldID": "caseHistory",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-solicitor"
+  },
+  {
+    "CRUD": "CR",
+    "CaseFieldID": "caseNotes",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-solicitor"
+  }
+]

@@ -12,7 +12,7 @@ const ensureKeys = keys => row =>
   keys.reduce((row, key) => ({ [key]: '', ...row }), row);
 
 const groupBy = (values, getId) => values.reduce((result, value) => {
-  result[getId(value)] = value;
+  result[getId(value)] = [...result[getId(value)] || [], value];
 
   return result;
 }, {});

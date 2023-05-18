@@ -1,7 +1,7 @@
 const { globSync } = require('glob');
 const { existsSync, writeFile } = require('fs');
 
-const JSON_DIR = 'definition/';
+const JSON_DIR = 'definition/CIVIL_FAMILY_TRIBUNALS';
 const JAVA_DIR = 'generated/src/test/java/uk/gov/hmcts/reform';
 
 const loadFile = path => existsSync(path) ? require("./" + path) : [];
