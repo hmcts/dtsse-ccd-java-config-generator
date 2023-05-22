@@ -1,0 +1,10 @@
+[
+  {
+    "Description": "Civil Family and Tribunals Applications",
+    "ID": "CIVIL_FAMILY_TRIBUNALS",
+    "JurisdictionID": "CFT",
+    "LiveFrom": "01/01/2017",
+    "Name": "CFT Application",
+    "SecurityClassification": "Public"
+  }
+]

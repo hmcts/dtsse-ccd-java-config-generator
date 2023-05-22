@@ -2,35 +2,21 @@
 
 const { generateFile } = require('./fs');
 const nunjucks = require('nunjucks');
-const { generateEventClasses } = require("./event-classes-generator");
+const { generateEventClasses } = require("./generators/event-classes-generator");
+const { transformJson } = require("./transform");
+const {generateStateClass} = require("./generators/state-class-generator");
+const {generateModelClasses} = require("./generators/model-classes-generator");
 
-const SERVICE = 'fpl';
+const SERVICE = 'cft';
 const BASE_PACKAGE = 'uk.gov.hmcts.reform';
 
-const fileFileTypeFieldId = {
-  './Jurisdiction.json': [field => field.ID, 'jurisdiction'],
-  './CaseType.json': [field => field.ID, 'caseTypes'],
-  '**/AuthorisationCaseState.json': [field => `${field.CaseStateID}:${field.UserRole}`, 'statePermissions'],
-  '**/AuthorisationCaseType.json': [field => field.UserRole, 'caseTypePermissions'],
-  '**/CaseField.json': [field => field.ID, 'fields'],
-  '**/CaseRoles.json': [field => field.ID, 'casePermissions'],
-  '**/SearchInputFields.json': [field => field.CaseFieldID, 'searchInputs'],
-  '**/SearchResultFields.json': [field => field.CaseFieldID, 'searchResults'],
-  'State.json': [field => field.ID, 'states'],
-  'State/**/State.json': [field => field.ID, 'states'],
-  '**/WorkBasketInputFields.json': [field => field.CaseFieldID, 'wbInputs'],
-  '**/WorkBasketResultFields.json': [field => field.CaseFieldID, 'wbResults'],
-  '**/AuthorisationCaseEvent.json': [field => `${field.CaseEventID}:${field.AccessControl}`, 'eventPermissions'],
-  'AuthorisationCaseEvent/**/*.json': [field => `${field.CaseEventID}:${field.AccessControl}`, 'eventPermissions'],
-  'AuthorisationCaseField/**/*.json': [field => `${field.CaseFieldID}:${field.UserRole}`, 'fieldPermissions'],
-  'CaseEvent/**/*.json': [field => field.ID, 'events'],
-  'ComplexTypes/*.json': [field => `${field.ID}:${field.ListElementCode}`, 'complexTypes'],
-  'CaseEventToFields/*.json': [field => `${field.CaseFieldID}:${field.CaseEventID}`, 'eventFields'],
-  'CaseTypeTab/*.json': [field => `${field.TabID}:${field.CaseFieldID}:${field.UserRole}`, 'caseTypeTab'],
-  'FixedLists/*.json': [field => `${field.ID}:${field.ListElementCode}`, 'fixedLists']
+const jsonDataMappings = {
+  '**/Jurisdiction.json': [field => field.ID, 'jurisdiction'],
+  '**/CaseType.json': [field => field.ID, 'caseTypes'],
+  '**/AuthorisationCaseType.json': [field => field.UserRole, 'caseTypePermissions']
 };
 
-const jsonConfig = transformJson(fileFileTypeFieldId);
+const jsonConfig = transformJson(jsonDataMappings);
 
 nunjucks.configure('templates', { autoescape: true });
 
@@ -45,8 +31,10 @@ context["caseTypes"] = [];
 Object.entries(jsonConfig['caseTypes']).forEach((caseType, index) => {
   context["caseTypes"][index] = { ...caseType[1] };
 })
-const res = nunjucks.render('MainConfigTemplate.java', context);
+const res = nunjucks.render('MainTemplate.java', context);
 generateFile(`${SERVICE}/${context.className}`, res);
 
 generateEventClasses(BASE_PACKAGE, SERVICE);
+generateModelClasses(BASE_PACKAGE, SERVICE);
+generateStateClass(BASE_PACKAGE, SERVICE);
 

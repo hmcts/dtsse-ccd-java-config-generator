@@ -1,15 +1,10 @@
-package uk.gov.hmcts.reform.fpl.enums;
+package {{ packageName }};
 
 import uk.gov.hmcts.ccd.sdk.api.CCD;
 
 public enum State {
-
-    @CCD(
-      label = "Initial case state – create title as a minimum; add documents, etc."
-    )
-    Open,
-    @CCD(
-      label = "Submitted case state - LA can no longer edit")
-    Submitted
-
+    {% for state in states %}
+    @CCD(label = "{{ state["Name"] }}")
+    {{ state["ID"] }}{{ ";" if loop.last else "," }}
+    {% endfor %}
 }

@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.fpl.model;
+package {{ packageName }};
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +9,10 @@ import uk.gov.hmcts.ccd.sdk.api.CCD;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 public class CaseData {
-
+    {% for field in fields %}
     @CCD(
-      label = "Applicant name"
+      label = "{{ field["Label"] }}"
     )
-    private String applicantName;
-
+    private String {{ field["ID"] }};
+    {% endfor %}
 }

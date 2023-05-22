@@ -58,22 +58,11 @@ public class E2EConfigGenerationTests {
     }
 
   @Test
-  public void generatesCareSupervisionEPO() {
-    var actual = dirToMap(new File(generatedJsonLocation, "CARE_SUPERVISION_EPO"));
-    var expected = resourcesDirToMap("CARE_SUPERVISION_EPO");
+  public void generatesOriginalJsonConfig() {
+    var actual = dirToMap(new File(generatedJsonLocation, "CIVIL_FAMILY_TRIBUNALS"));
+    var expected = resourcesDirToMap("CIVIL_FAMILY_TRIBUNALS");
     assertEquivalent(expected, actual);
   }
-
-    @SneakyThrows
-    @Test
-    public void generatesDerivedConfig() {
-      var actual = dirToMap(new File(tmp.getRoot(), "derived"));
-      var expected = ImmutableMap.<String, File>builder()
-        .putAll(this.resourcesDirToMap("CARE_SUPERVISION_EPO"))
-        .putAll(this.resourcesDirToMap("derived"))
-        .buildKeepingLast();
-      assertEquivalent(expected, actual, "CaseTypeID");
-    }
 
     private void assertEquivalent(Map<String, File> expected, Map<String, File> actual, String... ignoringFieldNames) {
       var diff = Maps.difference(expected, actual);

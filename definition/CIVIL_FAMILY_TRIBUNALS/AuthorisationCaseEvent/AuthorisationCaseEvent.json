@@ -1,0 +1,72 @@
+[
+  {
+    "CRUD": "R",
+    "CaseEventID": "addApplicantName",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-courtadmin"
+  },
+  {
+    "CRUD": "R",
+    "CaseEventID": "addApplicantName",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-judiciary"
+  },
+  {
+    "CRUD": "CR",
+    "CaseEventID": "addApplicantName",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-solicitor"
+  },
+  {
+    "CRUD": "R",
+    "CaseEventID": "addApplicantName",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-superuser"
+  },
+  {
+    "CRUD": "CR",
+    "CaseEventID": "addCaseNote",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-courtadmin"
+  },
+  {
+    "CRUD": "CR",
+    "CaseEventID": "addCaseNote",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-judiciary"
+  },
+  {
+    "CRUD": "R",
+    "CaseEventID": "addCaseNote",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-solicitor"
+  },
+  {
+    "CRUD": "CR",
+    "CaseEventID": "updateCaseNotes",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-courtadmin"
+  },
+  {
+    "CRUD": "CR",
+    "CaseEventID": "updateCaseNotes",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-judiciary"
+  },
+  {
+    "CRUD": "R",
+    "CaseEventID": "updateCaseNotes",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-solicitor"
+  }
+]

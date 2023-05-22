@@ -1,0 +1,58 @@
+[
+  {
+    "CRUD": "CR",
+    "CaseStateID": "Open",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-courtadmin"
+  },
+  {
+    "CRUD": "CR",
+    "CaseStateID": "Open",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-judiciary"
+  },
+  {
+    "CRUD": "CR",
+    "CaseStateID": "Open",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-solicitor"
+  },
+  {
+    "CRUD": "R",
+    "CaseStateID": "Open",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-superuser"
+  },
+  {
+    "CRUD": "CR",
+    "CaseStateID": "Submitted",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-courtadmin"
+  },
+  {
+    "CRUD": "CR",
+    "CaseStateID": "Submitted",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-judiciary"
+  },
+  {
+    "CRUD": "CR",
+    "CaseStateID": "Submitted",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-solicitor"
+  },
+  {
+    "CRUD": "R",
+    "CaseStateID": "Submitted",
+    "CaseTypeID": "CIVIL_FAMILY_TRIBUNALS",
+    "LiveFrom": "01/01/2017",
+    "UserRole": "caseworker-publiclaw-superuser"
+  }
+]
